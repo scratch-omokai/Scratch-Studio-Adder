@@ -24,10 +24,10 @@
     <section class="field">
       <label for="cooldown">クールタイム（秒）</label>
       <div class="inline">
-        <input id="cooldown" type="number" min="3" step="0.1" value="10">
-        <label class="check"><input id="jitter" type="checkbox" checked> ランダムに最大50%長くする（0.1秒単位）</label>
+        <input id="cooldown" type="number" min="0.1" step="0.001" value="10">
+        <label class="check"><input id="jitter" type="checkbox" checked> ランダムに最大50%長くする（ミリ秒単位）</label>
       </div>
-      <p class="hint">API を1回呼ぶごとに、この時間だけ待ちます。最短0.1秒。</p>
+      <p class="hint">API を1回呼ぶごとに、この時間だけ待ちます。最短0.1秒。0.001秒（1ミリ秒）単位で指定できます。</p>
     </section>
 
     <section class="actions">

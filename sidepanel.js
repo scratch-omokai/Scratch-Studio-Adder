@@ -164,24 +164,23 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 function nextCooldownMs() {
   let sec = Number(els.cooldown.value);
   if (!Number.isFinite(sec) || sec < MIN_COOLDOWN_SEC) sec = MIN_COOLDOWN_SEC;
-  sec = Math.round(sec * 10) / 10; // 基準の秒数も0.1秒単位にそろえる
+  let ms = Math.round(sec * 1000); // 基準のクールタイム（ミリ秒）
   if (els.jitter.checked) {
-    // 0.1秒単位で、0〜最大50%の範囲からランダムに上乗せする
-    const maxSteps = Math.floor(sec * 0.5 * 10);
-    const extraSteps = Math.floor(Math.random() * (maxSteps + 1));
-    sec = (Math.round(sec * 10) + extraSteps) / 10;
+    // 0〜最大50%の範囲から、1ミリ秒単位でランダムに上乗せする
+    const maxExtra = Math.floor(ms * 0.5);
+    ms += Math.floor(Math.random() * (maxExtra + 1));
   }
-  return Math.round(sec * 1000);
+  return ms;
 }
 
 async function wait(ms) {
   const end = Date.now() + ms;
-  const totalText = (ms / 1000).toFixed(1);
+  const totalText = (ms / 1000).toFixed(3);
   while (Date.now() < end) {
     if (stopRequested) return;
-    const left = Math.max(0, (end - Date.now()) / 1000).toFixed(1);
+    const left = Math.max(0, (end - Date.now()) / 1000).toFixed(3);
     setStatus(`次の操作まで ${left} 秒待機中（今回の待機時間 ${totalText} 秒）`);
-    await sleep(100);
+    await sleep(50);
   }
 }
 
