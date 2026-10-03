@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scratch スタジオ一括操作</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <main>
+    <h1>スタジオ一括操作</h1>
+
+    <section class="field">
+      <label for="project">作品ID（または作品のURL）</label>
+      <input id="project" type="text" inputmode="numeric" placeholder="1098030380">
+    </section>
+
+    <section class="field">
+      <label for="studios">スタジオID（1行に1つ。URLも可）</label>
+      <textarea id="studios" rows="7" placeholder="56&#10;1234567&#10;https://scratch.mit.edu/studios/7654321/"></textarea>
+      <p id="studioCount" class="hint">0 件</p>
+    </section>
+
+    <section class="field">
+      <label for="cooldown">クールタイム（秒）</label>
+      <div class="inline">
+        <input id="cooldown" type="number" min="3" step="0.1" value="10">
+        <label class="check"><input id="jitter" type="checkbox" checked> ランダムに最大50%長くする（0.1秒単位）</label>
+      </div>
+      <p class="hint">API を1回呼ぶごとに、この時間だけ待ちます。最短0.1秒。</p>
+    </section>
+
+    <section class="actions">
+      <button id="btnAdd" class="primary">追加する</button>
+      <button id="btnRemove" class="danger">削除する</button>
+      <button id="btnReplace" class="accent">削除→追加（1スタジオずつ）</button>
+      <button id="btnStop" class="stop" disabled>停止</button>
+    </section>
+
+    <section class="status" aria-live="polite">
+      <progress id="progress" value="0" max="1"></progress>
+      <p id="statusText">待機中</p>
+    </section>
+
+    <section class="logbox">
+      <div class="logbar">
+        <h2>ログ</h2>
+        <div>
+          <button id="btnCopy" class="small">コピー</button>
+          <button id="btnClear" class="small">クリア</button>
+        </div>
+      </div>
+      <div id="log" role="log"></div>
+    </section>
+  </main>
+  <script src="sidepanel.js"></script>
+</body>
+</html>
